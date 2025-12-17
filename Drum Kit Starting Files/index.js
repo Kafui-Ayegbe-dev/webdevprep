@@ -7,11 +7,15 @@ for(var i=0; i < btnList.length; i++){
 
         makeSound(btnInnerHtml);
 
+        buttonAnimation(btnInnerHtml);
+
     });
 }
 
 document.addEventListener("keydown", function(event){
     makeSound(event.key);
+    buttonAnimation(event.key);
+
 })
 
 function makeSound(key){
@@ -67,3 +71,15 @@ function makeSound(key){
 document.addEventListener("keydown", function(event){
     console.log(event.key);
 });
+
+function buttonAnimation(key){
+    var activeBtn = document.querySelector("." + key);
+
+    activeBtn.classList.add("pressed");
+
+    setTimeout(()=> {
+        activeBtn.classList.remove("pressed");
+    }, 100);
+
+
+}
