@@ -1,7 +1,19 @@
-import express from "express"; //import
-const app = express(); //init object
+import express from 'express';
+const app = express();
 const port = 3000;
 
-app.listen(3000, () => {
-  console.log(`Server is running on port: ${port}`);
+app.get("/", (req, res) => {
+  res.send("Helloooooooo");
+})
+
+app.get("/contact", (req, res)=> {
+  res.send("This is the contact endpoint");
+})
+
+app.get("/about", (req, res) => {
+  res.send("this is the about endpoint")
+})
+
+app.listen(port, ()=>{
+  console.log(`Server listening on port: ${port}`);
 })
