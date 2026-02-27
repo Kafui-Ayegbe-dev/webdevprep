@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <title>All Posts</title>
+</head>
+<body>
+    <!-- create divs  -->
+     <% if (locals.allposts) { %>
+        <h1>Here are all the posts</h1>
+
+        <% allposts.forEach(el => { %>
+            <div>
+                <p>First Name: <%= el.fname %></p>
+                <p>Last Name: <%= el.lname %></p>
+                <p>Title: <%= el.title %></p>
+                <p>Content: <%= el.message %></p>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <h1>No Posts At the time</h1>
+    <% } %>
+</body>
+</html>

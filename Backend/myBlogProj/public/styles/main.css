@@ -1,0 +1,12 @@
+form {
+    margin: 5px;
+}
+
+input, textarea {
+    margin-bottom: 5px;
+}
+
+div {
+    border: 1px solid blue;
+    padding: 5px;
+}

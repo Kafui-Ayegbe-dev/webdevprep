@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post Capstone</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <h1>Create A New Post or View all Posts.</h1>
+    <form action="/newpost" method="post">
+        <label for="">First Name: </label>
+        <input type="text" name="fname" id=""><br/>
+
+        <label for="">Last Name: </label>
+        <input type="text" name="lname" id=""><br/>
+
+        <label for="">Title: </label>
+        <input type="text" name="title" id=""><br/>
+
+        <label for="">Content: </label>
+        <textarea name="message" id=""></textarea><br/>
+
+        <input type="submit"  value="Create New Post">
+        
+    </form>
+
+    <form action="/allposts" method="get">
+        <input type="submit" name="allposts" value="View all Posts">
+    </form>
+    <h2></h2>
+</body>
+</html>
