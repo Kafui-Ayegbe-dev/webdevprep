@@ -3,9 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <title>Museum Viewer</title>
 </head>
 <body>
-    
+    <% if (locals.name) {%>
+        <!-- if locals.content is available display stuff else display default -->
+    <div>
+        <img src= <%=image %> alt= <%=name %> >
+        <h2>Artefact Name:  <%= name %></h2>
+        <h3>Culture: <%=culture %> </h3>
+        <h3>Department: <%=department %></h3>
+
+        <form action="/get-artefact" method="post">
+            <input type="submit" value="Get Random Artefact">
+        </form>
+    </div>
+    <% } else { %>
+        <div>
+        <img src="placeholder.jpeg" alt="placeholder">
+        <h2>Artefact Name: </h2>
+        <h3>Culture:  </h3>
+        <h3>Department: </h3>
+
+        <form action="/get-artefact" method="post">
+            <!-- value prop is what shows on the input like btn text -->
+            <input type="submit" value="Get Random Artefact">
+        </form>
+    </div>
+    <%} %>
 </body>
 </html>
