@@ -41,14 +41,82 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Write your code here//
 
 //CHALLENGE 1: GET All posts
+app.get("/posts", (req, res) => {
+  res.json(posts);
+  //res.send("Loserrrr");
+
+});
 
 //CHALLENGE 2: GET a specific post by id
+app.get("/posts/:id", (req, res) => {
+
+  const myId = Number(req.params.id);
+
+  const post = posts.find(item => item.id === Number(myId));
+
+  res.json(post)
+
+})
 
 //CHALLENGE 3: POST a new post
+app.post("/posts", (req, res) => {
+
+  const mytitle = req.body.title;
+  const mycontent = req.body.content;
+  const myauthor = req.body.author;
+
+  const newPost = {
+    id: 4,
+    title: mytitle,
+    content: mycontent,
+    author: myauthor,
+    date: "2023-08-10T09:15:00Z"
+  }
+
+  posts.push(newPost);
+
+  //console.log(posts);
+  //res.json(posts);
+
+  res.status(201);
+
+
+});
 
 //CHALLENGE 4: PATCH a post when you just want to update one parameter
+app.patch("/posts/:id", (req, res) => {
+
+  const myId = Number(req.params.id);
+
+  const existingPost = posts.find((item) => item.id === myId);
+
+  const replacementPost = {
+    id: myId,
+    title: req.body.title || existingPost.title,
+    content: req.body.content || existingPost.content,
+    author: req.body.author || existingPost.author
+  };
+
+  const searchIndex = posts.findIndex((item) => item.id === myId);
+  posts[searchIndex] = replacementPost;
+  console.log(posts[searchIndex]);
+
+  //res.json(replacementPost);
+  res.status(200);
+
+})
 
 //CHALLENGE 5: DELETE a specific post by providing the post id.
+app.delete("/posts/:id", (req, res) => {
+  const myId = Number(req.params.id);
+
+  // how to delete an element in JS without creating a new array. Not recommended
+  const postToBeDeleted = posts.findIndex(item => item.id !== myId);
+
+  if (postToBeDeleted !== -1) posts.splice(postToBeDeleted, 1);
+
+  res.status(200);
+})
 
 app.listen(port, () => {
   console.log(`API is running at http://localhost:${port}`);
