@@ -20,8 +20,34 @@ db.connect((err) => {
 
 let countries = []
 
+let temp_list = []
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
+async function countryExists(new_country, res){
+  const result = await db.query(`SELECT country_code FROM countries WHERE country_name=$1`,[new_country]);
+
+  if (result.rows.length === 0){
+
+    res.render("index.ejs", { countries: countries, total: countries.length, error: 'Country does not exist. Please try again' });
+
+  } 
+  else if (countries.includes(new_country)){
+    res.render("index.ejs", { countries: countries, total: countries.length, error: 'Country already exists. Please try again' });
+  }
+  else {
+    const data = result.rows[0];
+    const countryCode = data.country_code;
+
+    await db.query("INSERT INTO visited_countries (country_code) VALUES ($1)", [
+
+      countryCode,
+    ]);
+    res.redirect("/");
+  }
+
+}
 
 app.get("/", async (req, res) => {
   //Write your code here.
@@ -48,8 +74,26 @@ app.get("/", async (req, res) => {
   });
   console.log(result.rows);
   res.render("index.ejs", { countries: countries, total: countries.length });
-  db.end();
+  //db.end();
 });
+
+// Part 2
+app.post('/add', async (req, res) => {
+  const country_name = req.body.country;
+
+  console.log(country_name);
+
+  const result = await db.query(`SELECT country_code FROM countries WHERE country_name=$1`,[country_name]);
+
+  if (result.rows.length === 0){
+    countryExists("klk", res);
+  }
+  else {
+    countryExists(result.rows[0].country_code, res);
+  }
+  
+
+})
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
